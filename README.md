@@ -6,10 +6,10 @@
 4. your api will be available by address `http://localhost:8000`
 
 #### You can run Unit tests by  `php artisan test`
+
 ### Below written the documentation for API itself
+
 make sure to add `http://localhost:8000` as prefix for all routes
-
-
 
 ### Register a New User
 
@@ -239,7 +239,11 @@ make sure to add `http://localhost:8000` as prefix for all routes
       values: `id`, `title`, `description`, `attachments`, `user_id`, `status_id`, `created_at`, `updated_at`.
     - `order_by_direction`: Order direction (optional, default: `asc`). Allowed values: `asc`, `desc`.
     - `per_page`: Number of tasks per page (optional, default: `12`).
-
+    - Need to note that you can filter result by `title`,`description`,`status` fields. But `status` only
+      accepts `status->slugs`. For ex. ```{
+      status: "status_slug"
+      }
+      ```or ```/tasks?status=status_slug```
 - **Success Response:**
     - **Status Code:** 200
     - **Content:** JSON object containing paginated tasks list, total number of tasks, current page, and total pages.
