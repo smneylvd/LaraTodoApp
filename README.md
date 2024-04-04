@@ -1,66 +1,404 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### Register a New User
 
-## About Laravel
+- **Endpoint:** `/auth/register`
+- **Method:** `POST`
+- **Request Body:**
+  - `email` (required): The email address of the user.
+  - `name` (required): The name of the user.
+  - `password` (required): The password for the user account.
+  - `repassword` (required): Confirmation of the password.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Success Response:**
+  - **Status Code:** 200
+  - **Content:**
+    ```json
+    {
+      "access_token": "5|TRdAALsNM7QXdhmyZv7i60HqbuZ0GFK0SI6psw5h",
+      "token_type": "bearer"
+    }
+    ```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Error Responses:**
+  - **Status Code:** 400
+  - **Content:** JSON object containing details about the validation errors.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Login
 
-## Learning Laravel
+- **Endpoint:** `/auth/login`
+- **Method:** `POST`
+- **Request Body:**
+  - `email` (required): The email address of the user.
+  - `password` (required): The password for the user account.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Success Response:**
+  - **Status Code:** 200
+  - **Content:**
+    ```json
+    {
+      "access_token": "5|TRdAALsNM7QXdhmyZv7i60HqbuZ0GFK0SI6psw5h",
+      "token_type": "bearer"
+    }
+    ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Error Responses:**
+  - **Status Code:** 401
+  - **Content:** JSON object indicating incorrect credentials.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Logout
 
-## Laravel Sponsors
+- **Endpoint:** `/auth/logout`
+- **Method:** `GET`
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- **Success Response:**
+  - **Status Code:** 200
+  - **Content:** JSON object containing a success message indicating successful logout.
 
-### Premium Partners
+- **Error Responses:**
+  - **Status Code:** 401
+  - **Content:** JSON object indicating unauthorized access.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### User Profile
 
-## Contributing
+- **Endpoint:** `/auth/profile`
+- **Method:** `GET`
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **Success Response:**
+  - **Status Code:** 200
+  - **Content:** JSON object containing the user profile details.
+    ```json
+    {
+      "id": 1,
+      "name": "admin",
+      "email": "nurs@gmail.com",
+      "email_verified_at": null,
+      "api_token": null,
+      "created_at": "2024-04-04T10:29:02.000000Z",
+      "updated_at": "2024-04-04T10:29:02.000000Z",
+      "deleted_at": null
+    }
+    ```
 
-## Code of Conduct
+- **Error Responses:**
+  - **Status Code:** 401
+  - **Content:** JSON object indicating unauthorized access.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Get All Statuses
 
-## License
+- **Endpoint:** `/status`
+- **Method:** `GET`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- **Success Response:**
+  - **Status Code:** 200
+  - **Content:** JSON array containing all status records.
+    ```json
+    [
+      {
+        "id": 1,
+        "title": "undone",
+        "slug": "undone",
+        "created_at": "2024-04-04T10:29:33.000000Z",
+        "updated_at": "2024-04-04T10:29:33.000000Z",
+        "deleted_at": null
+      },
+      {
+        "id": 2,
+        "title": "task 1",
+        "slug": "done",
+        "created_at": "2024-04-04T11:24:41.000000Z",
+        "updated_at": "2024-04-04T11:24:41.000000Z",
+        "deleted_at": null
+      }
+    ]
+    ```
+
+- **Error Responses:**
+  - **Status Code:** 401
+  - **Content:** JSON object indicating unauthorized access.
+
+---
+
+### Get a Specific Status
+
+- **Endpoint:** `/status/{id}`
+- **Method:** `GET`
+- **Path Parameters:**
+  - `id`: The ID of the status.
+
+- **Success Response:**
+  - **Status Code:** 200
+  - **Content:** JSON object containing the status details.
+
+- **Error Responses:**
+  - **Status Code:** 401
+  - **Content:** JSON object indicating unauthorized access.
+  - **Status Code:** 404
+  - **Content:** JSON object indicating that the status with the given ID was not found.
+
+---
+
+### Create a New Status
+
+- **Endpoint:** `/status/store`
+- **Method:** `POST`
+- **Request Body:**
+  - `title` (required): The title of the status.
+  - `slug` (required): The slug for the status, must be unique.
+
+- **Success Response:**
+  - **Status Code:** 200
+  - **Content:** JSON object containing the newly created status details.
+    ```json
+    {
+      "title": "task 1",
+      "slug": "done",
+      "created_at": "2024-04-04T11:24:41.000000Z",
+      "updated_at": "2024-04-04T11:24:41.000000Z",
+      "id": 2
+    }
+    ```
+
+- **Error Responses:**
+  - **Status Code:** 400
+  - **Content:** JSON object containing details about the validation errors.
+
+---
+
+### Update a Status
+
+- **Endpoint:** `/status/{id}`
+- **Method:** `POST`
+- **Path Parameters:**
+  - `id`: The ID of the status to be updated.
+- **Request Body:**
+  - `title` (required): The new title of the status.
+  - `slug` (required): The new slug for the status, must be unique.
+
+- **Success Response:**
+  - **Status Code:** 200
+  - **Content:** JSON object containing the updated status details.
+    ```json
+    {
+      "title": "task 1",
+      "slug": "done",
+      "created_at": "2024-04-04T11:24:41.000000Z",
+      "updated_at": "2024-04-04T11:24:41.000000Z",
+      "id": 2
+    }
+    ```
+
+- **Error Responses:**
+  - **Status Code:** 400
+  - **Content:** JSON object containing details about the validation errors.
+  - **Status Code:** 401
+  - **Content:** JSON object indicating unauthorized access.
+  - **Status Code:** 404
+  - **Content:** JSON object indicating that the status with the given ID was not found.
+
+---
+
+### Delete a Status
+
+- **Endpoint:** `/status/{id}`
+- **Method:** `DELETE`
+- **Path Parameters:**
+  - `id`: The ID of the status to be deleted.
+
+- **Success Response:**
+  - **Status Code:** 200
+  - **Content:** JSON object indicating successful deletion.
+
+- **Error Responses:**
+  - **Status Code:** 401
+  - **Content:** JSON object indicating unauthorized access.
+  - **Status Code:** 404
+  - **Content:** JSON object indicating that the status with the given ID was not found.
+---
+### Get All Tasks
+
+- **Endpoint:** `/tasks`
+- **Method:** `GET`
+- **Query Parameters:**
+  - `order_by`: Field to order tasks by (optional, default: `id`). Allowed values: `id`, `title`, `description`, `attachments`, `user_id`, `status_id`, `created_at`, `updated_at`.
+  - `order_by_direction`: Order direction (optional, default: `asc`). Allowed values: `asc`, `desc`.
+  - `per_page`: Number of tasks per page (optional, default: `12`).
+
+- **Success Response:**
+  - **Status Code:** 200
+  - **Content:** JSON object containing paginated tasks list, total number of tasks, current page, and total pages.
+    ```json
+    {
+      "items": [
+        {
+          "id": 2,
+          "title": "task 1",
+          "description": "undone",
+          "attachments": null,
+          "deadline": null,
+          "user_id": 1,
+          "status_id": 1,
+          "created_at": "2024-04-04T10:42:37.000000Z",
+          "updated_at": "2024-04-04T10:42:37.000000Z",
+          "deleted_at": null,
+          "user": {
+            "id": 1,
+            "name": "admin",
+            "email": "nurs@gmail.com",
+            "email_verified_at": null,
+            "api_token": null,
+            "created_at": "2024-04-04T10:29:02.000000Z",
+            "updated_at": "2024-04-04T10:29:02.000000Z",
+            "deleted_at": null
+          },
+          "status": {
+            "id": 1,
+            "title": "undone",
+            "slug": "undone",
+            "created_at": "2024-04-04T10:29:33.000000Z",
+            "updated_at": "2024-04-04T10:29:33.000000Z",
+            "deleted_at": null
+          }
+        },
+        {
+          "id": 3,
+          "title": "task 1",
+          "description": "undone",
+          "attachments": null,
+          "deadline": null,
+          "user_id": 1,
+          "status_id": 1,
+          "created_at": "2024-04-04T10:42:45.000000Z",
+          "updated_at": "2024-04-04T10:42:45.000000Z",
+          "deleted_at": null,
+          "user": {
+            "id": 1,
+            "name": "admin",
+            "email": "nurs@gmail.com",
+            "email_verified_at": null,
+            "api_token": null,
+            "created_at": "2024-04-04T10:29:02.000000Z",
+            "updated_at": "2024-04-04T10:29:02.000000Z",
+            "deleted_at": null
+          },
+          "status": {
+            "id": 1,
+            "title": "undone",
+            "slug": "undone",
+            "created_at": "2024-04-04T10:29:33.000000Z",
+            "updated_at": "2024-04-04T10:29:33.000000Z",
+            "deleted_at": null
+          }
+        }
+      ],
+      "total": 13,
+      "current_page": 1,
+      "total_pages": 7
+    }
+    ```
+
+- **Error Responses:**
+  - **Status Code:** 400
+  - **Content:** JSON object indicating validation error details.
+
+---
+
+### Get a Specific Task
+
+- **Endpoint:** `/tasks/{id}`
+- **Method:** `GET`
+- **Path Parameters:**
+  - `id`: The ID of the task.
+
+- **Success Response:**
+  - **Status Code:** 200
+  - **Content:** JSON object containing the task details.
+
+- **Error Responses:**
+  - **Status Code:** 404
+  - **Content:** JSON object indicating that the task with the given ID was not found.
+
+---
+
+### Create a New Task
+
+- **Endpoint:** `/tasks/store`
+- **Method:** `POST`
+- **Request Body:**
+  - `title` (required): The title of the task.
+  - `description` (required): The description of the task.
+  - `status_id` (optional): The ID of the status for the task.
+
+- **Success Response:**
+  - **Status Code:** 200
+  - **Content:** JSON object containing the newly created task details.
+    ```json
+    {
+      "title": "task 1",
+      "description": "undone",
+      "status_id": 1,
+      "user_id": 1,
+      "created_at": "2024-04-04T10:42:53.000000Z",
+      "deadline": null,
+      "updated_at": "2024-04-04T10:42:53.000000Z",
+      "id": 14
+    }
+    ```
+
+- **Error Responses:**
+  - **Status Code:** 400
+  - **Content:** JSON object indicating details about the validation errors.
+
+---
+
+### Update a Task
+
+- **Endpoint:** `/tasks/{id}`
+- **Method:** `POST`
+- **Path Parameters:**
+  - `id`: The ID of the task to be updated.
+- **Request Body:**
+  - `title` (required): The new title of the task.
+  - `description` (required): The new description of the task.
+  - `status_id` (optional): The new status ID for the task.
+
+- **Success Response:**
+  - **Status Code:** 200
+  - **Content:** JSON object containing the updated task details.
+    ```json
+    {
+      "title": "task 1",
+      "description": "undone",
+      "status_id": 1,
+      "user_id": 1,
+      "created_at": "2024-04-04T10:42:53.000000Z",
+      "deadline": null,
+      "updated_at": "2024-04-04T10:42:53.000000Z",
+      "id": 14
+    }
+    ```
+
+- **Error Responses:**
+  - **Status Code:** 400
+  - **Content:** JSON object indicating details about the validation errors.
+  - **Status Code:** 404
+  - **Content:** JSON object indicating that the task with the given ID was not found.
+
+---
+
+### Delete a Task
+
+- **Endpoint:** `/tasks/{id}`
+- **Method:** `DELETE`
+- **Path Parameters:**
+  - `id`: The ID of the task to be deleted.
+
+- **Success Response:**
+  - **Status Code:** 200
+  - **Content:** JSON object indicating successful deletion.
+
+- **Error Responses:**
+  - **Status Code:** 404
+  - **Content:** JSON object indicating that the task with the given ID was not found.
