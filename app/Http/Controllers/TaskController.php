@@ -14,7 +14,20 @@ class TaskController extends Controller
 {
     public function index(Request $request)
     {
+
+        $validator = Validator::make(request()->all(), [
+            'order_by' => 'in:id,title,description,attachments,user_id,status_id,created_at,updated_at',
+            'order_by_direction' => 'in:asc,desc',
+        ]);
+
+        if ($validator->fails()) {
+            throw new HttpException(400, $validator->errors()->first());
+        }
+
         $is_admin = $request->get('id_admin', false);
+        $orderByDirection = $request->get('order_by_direction', 'asc');
+        $orderBy = $request->get("order_by", 'id');
+        $perPage = $request->get('per_page', 12);
 
         $items = Task::query()
             ->where('deleted_at', null)
@@ -34,7 +47,8 @@ class TaskController extends Controller
                     });
                 }
             })
-            ->paginate($request->get('per_page', 12));
+            ->orderBy($orderBy, $orderByDirection)
+            ->paginate($perPage);
 
         return response()->json([
                 'items' => $items->items(),
